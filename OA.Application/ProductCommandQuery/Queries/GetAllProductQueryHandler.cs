@@ -13,16 +13,16 @@ namespace OA.Application.ProductUseCases.Queries
 {
     public class GetAllProductQueryHandler : IRequestHandler<GetAllProductQuery, CustomResponseDto<GetAllProductResponse>>
     {
-        private readonly IProductRepository _repository;
+        private readonly IRepositoryManager _repositoryManager;
 
-        public GetAllProductQueryHandler(IProductRepository repository)
+        public GetAllProductQueryHandler(IRepositoryManager repositoryManager)
         {
-            _repository = repository;
+            _repositoryManager = repositoryManager;
         }
 
         public async Task<CustomResponseDto<GetAllProductResponse>> Handle(GetAllProductQuery request, CancellationToken cancellationToken)
         {
-            var productWithPages = await _repository.GetAll(request.Page, request.PageSize);
+            var productWithPages = await _repositoryManager.ProductRepository.GetAll(request.Page, request.PageSize);
 
             var response = new GetAllProductResponse()
             {

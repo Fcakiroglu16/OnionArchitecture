@@ -13,16 +13,17 @@ namespace OA.Application.ProductUseCases.Commands.Create
 {
     public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, CustomResponseDto<CreateProductResponse>>
     {
-        private readonly IProductRepository _productRepository;
+        private readonly IRepositoryManager _repositoryManager;
 
-        public CreateProductCommandHandler(IProductRepository productRepository)
+        public CreateProductCommandHandler(IRepositoryManager repositoryManager)
         {
-            _productRepository = productRepository;
+            _repositoryManager = repositoryManager;
         }
 
         public async Task<CustomResponseDto<CreateProductResponse>> Handle(CreateProductCommand request, CancellationToken cancellationToken)
         {
-            var product = await _productRepository.Create(ObjectMapper.Mapper.Map<Product>(request));
+            var product = await _repositoryManager.ProductRepository.Create(ObjectMapper.Mapper.Map<Product>(request));
+            await _repositoryManager.UnitOfWork.SaveChangesAsync();
 
             var response = ObjectMapper.Mapper.Map<CreateProductResponse>(product);
 
