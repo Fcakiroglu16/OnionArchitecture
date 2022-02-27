@@ -3,11 +3,6 @@ using OA.Domain;
 
 using OA.Domain.Repositories;
 using OA.Persistence.Databases;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Collection = OA.Persistence.WriteMongoRepositories.AntiCorruptionLayer.Collections;
 
 namespace OA.Persistence.WriteMongoRepositories

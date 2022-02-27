@@ -1,7 +1,14 @@
+using MassTransit;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using OA.Domain.Events;
 using OA.Domain.Repositories;
+using OA.Persistence;
+using OA.Persistence.Consumers;
 using OA.Persistence.Databases;
+using OA.Persistence.MessageBroker;
+using OA.Persistence.ReadRepositories;
 using OA.Persistence.WriteMongoRepositories;
 using System.Reflection;
 
@@ -21,12 +28,31 @@ builder.Services.AddSingleton<IReadDatabaseSettings>(sp =>
 });
 
 builder.Services.AddScoped<IWriteRepositoryManager, WriteRepositoryManager>();
+builder.Services.AddScoped<IReadRepositoryManager, ReadRepositoryManager>();
+builder.Services.AddDbContext<AppDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("SqlCon"));
+});
 
-//builder.Services.AddDbContext<AppDbContext>(options =>
-//{
-//    options.UseSqlServer(builder.Configuration.GetConnectionString("SqlCon"));
-//});
+builder.Services.AddMassTransit(x =>
+{
+    x.AddConsumer<SyncReadProductsConsumer>();
+    x.AddConsumer<SyncReadCategoriesConsumer>();
+    x.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.Host(new Uri(builder.Configuration.GetConnectionString("RabbitMQCon")), host =>
+        {
+        });
 
+        cfg.ReceiveEndpoint(EventPublish.SyncDatabaseQueue, e =>
+        {
+            e.ConfigureConsumer<SyncReadProductsConsumer>(context);
+            e.ConfigureConsumer<SyncReadCategoriesConsumer>(context);
+        });
+    });
+});
+builder.Services.AddMassTransitHostedService();
+builder.Services.AddScoped<IEventPublish, EventPublish>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

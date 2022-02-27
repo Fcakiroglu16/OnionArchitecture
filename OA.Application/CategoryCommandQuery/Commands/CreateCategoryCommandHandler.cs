@@ -1,23 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using OA.Domain.Events;
 
 namespace OA.Application.CategoryCommandQuery.Commands
 {
     internal class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryCommand, CustomResponseDto<CategoryDto>>
     {
         private readonly IWriteRepositoryManager _writeRepositoryManager;
+        private readonly IEventPublish _eventPublish;
 
-        public CreateCategoryCommandHandler(IWriteRepositoryManager repositoryManager)
+        public CreateCategoryCommandHandler(IWriteRepositoryManager repositoryManager, IEventPublish eventPublish)
         {
             _writeRepositoryManager = repositoryManager;
+            _eventPublish = eventPublish;
         }
 
         public async Task<CustomResponseDto<CategoryDto>> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
         {
             var category = await _writeRepositoryManager.CategoryRepository.CreateAsync(ObjectMapper.Mapper.Map<Category>(request));
+
+            if (category.Id != null)
+            {
+                await _eventPublish.Publish(new SyncCategoriesEvent() { Category = category, Action = ESyncDatabaseAction.Created });
+            }
 
             var response = ObjectMapper.Mapper.Map<CategoryDto>(category);
 
