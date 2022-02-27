@@ -1,12 +1,9 @@
-using System.Reflection;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using OA.Domain.Repositories;
-using OA.Persistence;
 using OA.Persistence.Databases;
-using OA.Persistence.Repositories;
 using OA.Persistence.WriteMongoRepositories;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 

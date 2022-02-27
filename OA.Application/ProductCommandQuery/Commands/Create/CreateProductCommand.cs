@@ -1,14 +1,4 @@
-﻿using MediatR;
-using OA.Application.Mappers;
-
-using OA.Domain.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OA.Domain.ProductCommandQuery.Commands.Create
+﻿namespace OA.Domain.ProductCommandQuery.Commands.Create
 {
     public record CreateProductCommand : IRequest<CustomResponseDto<CreateProductResponse>>
     {

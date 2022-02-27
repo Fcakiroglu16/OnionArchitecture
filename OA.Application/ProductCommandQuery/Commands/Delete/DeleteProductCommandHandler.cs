@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OA.Application.ProductCommandQuery.Commands.Delete
+﻿namespace OA.Application.ProductCommandQuery.Commands.Delete
 {
     internal class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand, CustomResponseDto<NoContent>>
     {

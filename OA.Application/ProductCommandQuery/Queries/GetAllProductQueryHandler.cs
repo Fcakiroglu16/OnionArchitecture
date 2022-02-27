@@ -1,13 +1,4 @@
-﻿using MediatR;
-using OA.Application.Mappers;
-using OA.Domain;
-using OA.Domain.ProductUseCases.Queries;
-using OA.Domain.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using OA.Domain.ProductUseCases.Queries;
 
 namespace OA.Application.ProductUseCases.Queries
 {

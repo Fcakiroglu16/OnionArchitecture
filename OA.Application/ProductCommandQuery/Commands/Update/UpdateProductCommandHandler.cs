@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OA.Application.ProductCommandQuery.Commands.Update;
+﻿namespace OA.Application.ProductCommandQuery.Commands.Update;
 
 public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand, CustomResponseDto<NoContent>>
 {
