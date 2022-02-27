@@ -9,7 +9,7 @@ namespace OA.Persistence.WriteMongoRepositories.AntiCorruptionLayer.Collections
         {
         }
 
-        public Product(Domain.Product product) => (Id, Name, Price, Stock) = (product.Id, product.Name, product.Price, product.Stock);
+        public Product(Domain.Product product) => (Id, Name, Price, Stock, CategoryId) = (product.Id, product.Name, product.Price, product.Stock, product.CategoryId);
 
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
@@ -22,9 +22,9 @@ namespace OA.Persistence.WriteMongoRepositories.AntiCorruptionLayer.Collections
 
         public int Stock { get; set; }
 
-        //[BsonRepresentation(BsonType.ObjectId)]
-        //public string CategoryId { get; set; }
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string CategoryId { get; set; }
 
-        //public Category Category { get; set; }
+        public Category Category { get; set; }
     }
 }

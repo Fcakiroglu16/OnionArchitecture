@@ -1,6 +1,4 @@
-﻿using OA.Domain.Entities;
-
-namespace OA.Domain
+﻿namespace OA.Domain
 {
     public class Product : BaseEntity, IIdentity
     {

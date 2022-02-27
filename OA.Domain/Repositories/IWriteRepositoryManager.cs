@@ -2,6 +2,7 @@
 {
     public interface IWriteRepositoryManager
     {
-        IProductWriteRepository ProductRepository { get; }
+        IWriteProductRepository ProductRepository { get; }
+        IWriteCategoryRepository CategoryRepository { get; }
     }
 }

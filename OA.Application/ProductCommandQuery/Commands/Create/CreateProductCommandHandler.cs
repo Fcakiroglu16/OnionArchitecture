@@ -1,6 +1,8 @@
-﻿namespace OA.Domain.ProductCommandQuery.Commands.Create
+﻿using OA.Application.ProductUseCases;
+
+namespace OA.Domain.ProductCommandQuery.Commands.Create
 {
-    public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, CustomResponseDto<CreateProductResponse>>
+    public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, CustomResponseDto<ProductDto>>
     {
         private readonly IWriteRepositoryManager _writeRepositoryManager;
 
@@ -9,13 +11,13 @@
             _writeRepositoryManager = repositoryManager;
         }
 
-        public async Task<CustomResponseDto<CreateProductResponse>> Handle(CreateProductCommand request, CancellationToken cancellationToken)
+        public async Task<CustomResponseDto<ProductDto>> Handle(CreateProductCommand request, CancellationToken cancellationToken)
         {
             var product = await _writeRepositoryManager.ProductRepository.CreateAsync(ObjectMapper.Mapper.Map<Product>(request));
 
-            var response = ObjectMapper.Mapper.Map<CreateProductResponse>(product);
+            var response = ObjectMapper.Mapper.Map<ProductDto>(product);
 
-            return CustomResponseDto<CreateProductResponse>.Success(200, response);
+            return CustomResponseDto<ProductDto>.Success(201, response);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace OA.Domain.Entities
+﻿namespace OA.Domain
 {
     public class Category : BaseEntity, IIdentity
     {

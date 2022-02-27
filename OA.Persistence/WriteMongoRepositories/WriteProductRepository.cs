@@ -6,7 +6,7 @@ using Collection = OA.Persistence.WriteMongoRepositories.AntiCorruptionLayer.Col
 
 namespace OA.Persistence.WriteRepositories
 {
-    public class WriteProductRepository : IProductWriteRepository
+    public class WriteProductRepository : IWriteProductRepository
     {
         public const string ProductCollectionName = "Products";
         private readonly IMongoCollection<Collection.Product> _productCollection;

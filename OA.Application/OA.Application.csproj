@@ -19,4 +19,8 @@
     <ProjectReference Include="..\OA.Domain\OA.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="CategoryCommandQuery\Queries\" />
+  </ItemGroup>
+
 </Project>

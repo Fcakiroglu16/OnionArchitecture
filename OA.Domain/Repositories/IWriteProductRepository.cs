@@ -1,6 +1,6 @@
 ﻿namespace OA.Domain.Repositories
 {
-    public interface IProductWriteRepository
+    public interface IWriteProductRepository
     {
         Task<Product> CreateAsync(Product product);
 
