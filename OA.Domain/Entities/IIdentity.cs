@@ -8,6 +8,6 @@ namespace OA.Domain
 {
     public interface IIdentity
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
     }
 }

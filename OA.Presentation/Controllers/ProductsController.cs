@@ -1,6 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using OA.Domain.ProductUseCases.Commands;
+using OA.Application.ProductCommandQuery.Commands.Delete;
+using OA.Application.ProductCommandQuery.Commands.Update;
+using OA.Domain.ProductCommandQuery.Commands.Create;
 using OA.Domain.ProductUseCases.Queries;
 
 namespace OA.Presentation
@@ -15,15 +17,27 @@ namespace OA.Presentation
         }
 
         [HttpGet("{Page:int}/{PageSize:int}")]
-        public async Task<IActionResult> GetProducts([FromRoute] GetAllProductQuery getAllProductQuery)
+        public async Task<IActionResult> GetAll([FromRoute] GetAllProductQuery request)
         {
-            return CreateActionResult(await _mediator.Send(getAllProductQuery));
+            return CreateActionResult(await _mediator.Send(request));
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateProduct(CreateProductCommand createProductCommand)
+        public async Task<IActionResult> Create(CreateProductCommand request)
         {
-            return CreateActionResult(await _mediator.Send(createProductCommand));
+            return CreateActionResult(await _mediator.Send(request));
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Update(UpdateProductCommand request)
+        {
+            return CreateActionResult(await _mediator.Send(request));
+        }
+
+        [HttpDelete("{Id}")]
+        public async Task<IActionResult> Delete([FromRoute] DeleteProductCommand request)
+        {
+            return CreateActionResult(await _mediator.Send(request));
         }
     }
 }

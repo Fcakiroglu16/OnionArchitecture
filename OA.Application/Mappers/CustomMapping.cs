@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
+using OA.Application.ProductCommandQuery.Commands.Update;
 using OA.Application.ProductUseCases;
-using OA.Application.ProductUseCases.Commands.Create;
+
 using OA.Domain;
-using OA.Domain.ProductUseCases.Commands;
+using OA.Domain.ProductCommandQuery.Commands.Create;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace OA.Application.Mappers
         {
             CreateMap<Product, CreateProductResponse>();
             CreateMap<CreateProductCommand, Product>();
+            CreateMap<UpdateProductCommand, Product>();
             CreateMap<Product, ProductDto>();
         }
     }

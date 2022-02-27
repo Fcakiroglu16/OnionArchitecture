@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OA.Persistence", "OA.Persis
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OA.API", "OA.API\OA.API.csproj", "{CD141609-B4E1-465A-B08D-B74A2F4628D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OA.Presentation", "OA.Presentation\OA.Presentation.csproj", "{A64A4CAF-FE10-42D7-ADFF-DC83EC61B119}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OA.Presentation", "OA.Presentation\OA.Presentation.csproj", "{A64A4CAF-FE10-42D7-ADFF-DC83EC61B119}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

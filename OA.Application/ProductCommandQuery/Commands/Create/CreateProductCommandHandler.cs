@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using OA.Application.Mappers;
 using OA.Domain;
-using OA.Domain.ProductUseCases.Commands;
+
 using OA.Domain.Repositories;
 using System;
 using System.Collections.Generic;
@@ -9,21 +9,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OA.Application.ProductUseCases.Commands.Create
+namespace OA.Domain.ProductCommandQuery.Commands.Create
 {
     public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, CustomResponseDto<CreateProductResponse>>
     {
-        private readonly IRepositoryManager _repositoryManager;
+        private readonly IWriteRepositoryManager _writeRepositoryManager;
 
-        public CreateProductCommandHandler(IRepositoryManager repositoryManager)
+        public CreateProductCommandHandler(IWriteRepositoryManager repositoryManager)
         {
-            _repositoryManager = repositoryManager;
+            _writeRepositoryManager = repositoryManager;
         }
 
         public async Task<CustomResponseDto<CreateProductResponse>> Handle(CreateProductCommand request, CancellationToken cancellationToken)
         {
-            var product = await _repositoryManager.ProductRepository.Create(ObjectMapper.Mapper.Map<Product>(request));
-            await _repositoryManager.UnitOfWork.SaveChangesAsync();
+            var product = await _writeRepositoryManager.ProductRepository.CreateAsync(ObjectMapper.Mapper.Map<Product>(request));
 
             var response = ObjectMapper.Mapper.Map<CreateProductResponse>(product);
 
