@@ -1,5 +1,5 @@
 ﻿using OA.Domain.Repositories;
-using OA.Persistence.Databases.ReadEfCoreRepositories;
+using OA.Persistence.Databases;
 
 namespace OA.Persistence.ReadRepositories;
 

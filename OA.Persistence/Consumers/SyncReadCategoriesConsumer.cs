@@ -1,5 +1,6 @@
 ﻿using MassTransit;
 using OA.Domain.Events;
+using OA.Persistence.Databases;
 
 namespace OA.Persistence.Consumers;
 

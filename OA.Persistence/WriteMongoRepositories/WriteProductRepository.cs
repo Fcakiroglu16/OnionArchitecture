@@ -8,7 +8,7 @@ namespace OA.Persistence.WriteRepositories;
 
 public class WriteProductRepository : IWriteProductRepository
 {
-    public const string ProductCollectionName = "Products";
+    private const string ProductCollectionName = "Products";
     private readonly IMongoCollection<Collection.Product> _productCollection;
 
     public WriteProductRepository(IReadDatabaseSettings readDatabaseSettings)

@@ -1,5 +1,6 @@
 ﻿using MassTransit;
 using OA.Domain.Events;
+using OA.Persistence.Databases;
 
 namespace OA.Persistence.Consumers;
 
@@ -17,15 +18,15 @@ public class SyncReadProductsConsumer : IConsumer<SyncProductsEvent>
         switch (context.Message.Action)
         {
             case ESyncDatabaseAction.Created:
-                await _context.Products.AddAsync(context.Message.Product);
+                await _context.Products.AddAsync(context.Message.Product!);
                 break;
 
             case ESyncDatabaseAction.Updated:
-                _context.Products.Update(context.Message.Product);
+                _context.Products.Update(context.Message.Product!);
                 break;
 
             case ESyncDatabaseAction.Deleted:
-                _context.Products.Remove(context.Message.Product);
+                _context.Products.Remove(context.Message.Product!);
                 break;
         }
 

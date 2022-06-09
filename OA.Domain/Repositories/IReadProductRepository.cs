@@ -2,7 +2,7 @@
 
 public interface IReadProductRepository
 {
-    Task<EntityWithPage<Product>> GetAll(int page, int pageSize);
+    Task<EntityWithPage<Product?>> GetAll(int page, int pageSize);
 
-    Task<Product> GetById(int id);
+    Task<Product?> GetById(int id);
 }

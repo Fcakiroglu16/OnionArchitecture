@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OA.Domain;
 
-namespace OA.Persistence;
+namespace OA.Persistence.Databases;
 
 public class AppDbContext : DbContext
 {
@@ -9,9 +9,9 @@ public class AppDbContext : DbContext
     {
     }
 
-    public DbSet<Product> Products { get; set; }
+    public DbSet<Product> Products { get; set; } = null!;
 
-    public DbSet<Category> Categories { get; set; }
+    public DbSet<Category> Categories { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

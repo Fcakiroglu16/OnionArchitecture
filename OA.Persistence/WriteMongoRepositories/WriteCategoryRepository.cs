@@ -8,7 +8,7 @@ namespace OA.Persistence.WriteMongoRepositories;
 
 public class WriteCategoryRepository : IWriteCategoryRepository
 {
-    public const string CategoryCollectionName = "Categories";
+    private const string CategoryCollectionName = "Categories";
     private readonly IMongoCollection<Collection.Category> _categoryCollection;
 
     public WriteCategoryRepository(IReadDatabaseSettings readDatabaseSettings)

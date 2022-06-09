@@ -1,6 +1,6 @@
 ﻿using OA.Domain.UnitOfWork;
 
-namespace OA.Persistence;
+namespace OA.Persistence.Databases;
 
 public class UnitOfWork : IUnitOfWork
 {
