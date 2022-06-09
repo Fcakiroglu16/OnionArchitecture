@@ -1,7 +1,9 @@
+using System.Reflection;
 using MassTransit;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using OA.Application.Mappers;
 using OA.Domain.Events;
 using OA.Domain.Repositories;
 using OA.Persistence;
@@ -10,15 +12,15 @@ using OA.Persistence.Databases;
 using OA.Persistence.MessageBroker;
 using OA.Persistence.ReadRepositories;
 using OA.Persistence.WriteMongoRepositories;
-using System.Reflection;
+using OA.Presentation;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers().AddApplicationPart(Assembly.GetAssembly(typeof(OA.Presentation.CustomControllerBase)));
+builder.Services.AddControllers().AddApplicationPart(Assembly.GetAssembly(typeof(CustomControllerBase)));
 
-builder.Services.AddMediatR(Assembly.GetAssembly(typeof(OA.Application.Mappers.ObjectMapper)));
+builder.Services.AddMediatR(Assembly.GetAssembly(typeof(ObjectMapper)));
 
 builder.Services.Configure<ReadDatabaseSettings>(builder.Configuration.GetSection("ReadDatabaseSettings"));
 
@@ -31,7 +33,10 @@ builder.Services.AddScoped<IWriteRepositoryManager, WriteRepositoryManager>();
 builder.Services.AddScoped<IReadRepositoryManager, ReadRepositoryManager>();
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("SqlCon"));
+    //TODO: use RDMS 
+    // options.UseSqlServer(builder.Configuration.GetConnectionString("SqlCon"));
+
+    options.UseInMemoryDatabase("db");
 });
 
 builder.Services.AddMassTransit(x =>
@@ -40,9 +45,7 @@ builder.Services.AddMassTransit(x =>
     x.AddConsumer<SyncReadCategoriesConsumer>();
     x.UsingRabbitMq((context, cfg) =>
     {
-        cfg.Host(new Uri(builder.Configuration.GetConnectionString("RabbitMQCon")), host =>
-        {
-        });
+        cfg.Host(new Uri(builder.Configuration.GetConnectionString("RabbitMQCon")), host => { });
 
         cfg.ReceiveEndpoint(EventPublish.SyncDatabaseQueue, e =>
         {

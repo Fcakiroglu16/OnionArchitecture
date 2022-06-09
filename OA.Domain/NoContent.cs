@@ -1,6 +1,5 @@
-﻿namespace OA.Domain
+﻿namespace OA.Domain;
+
+public struct NoContent
 {
-    public struct NoContent
-    {
-    }
 }

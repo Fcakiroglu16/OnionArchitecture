@@ -1,7 +1,6 @@
-﻿namespace OA.Domain
+﻿namespace OA.Domain;
+
+public interface IIdentity
 {
-    public interface IIdentity
-    {
-        public string Id { get; set; }
-    }
+    public string Id { get; set; }
 }

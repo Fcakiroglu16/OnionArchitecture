@@ -1,37 +1,33 @@
 ﻿using MassTransit;
 using OA.Domain.Events;
 
-namespace OA.Persistence.Consumers
+namespace OA.Persistence.Consumers;
+
+public class SyncReadCategoriesConsumer : IConsumer<SyncCategoriesEvent>
 {
-    public class SyncReadCategoriesConsumer : IConsumer<SyncCategoriesEvent>
+    private readonly AppDbContext _context;
+
+    public SyncReadCategoriesConsumer(AppDbContext context)
     {
-        private readonly AppDbContext _context;
+        _context = context;
+    }
 
-        public SyncReadCategoriesConsumer(AppDbContext context)
+    public async Task Consume(ConsumeContext<SyncCategoriesEvent> context)
+    {
+        switch (context.Message.Action)
         {
-            _context = context;
+            case ESyncDatabaseAction.Created:
+                await _context.Categories.AddAsync(context.Message.Category);
+
+                break;
+
+            case ESyncDatabaseAction.Updated:
+                break;
+
+            case ESyncDatabaseAction.Deleted:
+                break;
         }
 
-        public async Task Consume(ConsumeContext<SyncCategoriesEvent> context)
-        {
-            switch (context.Message.Action)
-            {
-                case ESyncDatabaseAction.Created:
-                    await _context.Categories.AddAsync(context.Message.Category);
-
-                    break;
-
-                case ESyncDatabaseAction.Updated:
-                    break;
-
-                case ESyncDatabaseAction.Deleted:
-                    break;
-
-                default:
-                    break;
-            }
-
-            await _context.SaveChangesAsync();
-        }
+        await _context.SaveChangesAsync();
     }
 }

@@ -1,7 +1,6 @@
-﻿namespace OA.Domain.Repositories
+﻿namespace OA.Domain.Repositories;
+
+public interface IWriteCategoryRepository
 {
-    public interface IWriteCategoryRepository
-    {
-        Task<Category> CreateAsync(Category category);
-    }
+    Task<Category> CreateAsync(Category category);
 }

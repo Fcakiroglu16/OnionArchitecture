@@ -1,38 +1,34 @@
 ﻿using MassTransit;
 using OA.Domain.Events;
 
-namespace OA.Persistence.Consumers
+namespace OA.Persistence.Consumers;
+
+public class SyncReadProductsConsumer : IConsumer<SyncProductsEvent>
 {
-    public class SyncReadProductsConsumer : IConsumer<SyncProductsEvent>
+    private readonly AppDbContext _context;
+
+    public SyncReadProductsConsumer(AppDbContext context)
     {
-        private readonly AppDbContext _context;
+        _context = context;
+    }
 
-        public SyncReadProductsConsumer(AppDbContext context)
+    public async Task Consume(ConsumeContext<SyncProductsEvent> context)
+    {
+        switch (context.Message.Action)
         {
-            _context = context;
+            case ESyncDatabaseAction.Created:
+                await _context.Products.AddAsync(context.Message.Product);
+                break;
+
+            case ESyncDatabaseAction.Updated:
+                _context.Products.Update(context.Message.Product);
+                break;
+
+            case ESyncDatabaseAction.Deleted:
+                _context.Products.Remove(context.Message.Product);
+                break;
         }
 
-        public async Task Consume(ConsumeContext<SyncProductsEvent> context)
-        {
-            switch (context.Message.Action)
-            {
-                case ESyncDatabaseAction.Created:
-                    await _context.Products.AddAsync(context.Message.Product);
-                    break;
-
-                case ESyncDatabaseAction.Updated:
-                    _context.Products.Update(context.Message.Product);
-                    break;
-
-                case ESyncDatabaseAction.Deleted:
-                    _context.Products.Remove(context.Message.Product);
-                    break;
-
-                default:
-                    break;
-            }
-
-            await _context.SaveChangesAsync();
-        }
+        await _context.SaveChangesAsync();
     }
 }

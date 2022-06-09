@@ -1,7 +1,6 @@
-﻿namespace OA.Application.CategoryCommandQuery.Commands
+﻿namespace OA.Application.CategoryCommandQuery.Commands;
+
+public class CreateCategoryCommand : IRequest<CustomResponseDto<CategoryDto>>
 {
-    public class CreateCategoryCommand : IRequest<CustomResponseDto<CategoryDto>>
-    {
-        public string Name { get; set; }
-    }
+    public string Name { get; set; }
 }

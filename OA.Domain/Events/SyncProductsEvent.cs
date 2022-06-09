@@ -1,8 +1,7 @@
-﻿namespace OA.Domain.Events
+﻿namespace OA.Domain.Events;
+
+public class SyncProductsEvent
 {
-    public class SyncProductsEvent
-    {
-        public Product Product { get; set; }
-        public ESyncDatabaseAction Action { get; set; }
-    }
+    public Product Product { get; set; }
+    public ESyncDatabaseAction Action { get; set; }
 }

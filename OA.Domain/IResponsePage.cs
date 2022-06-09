@@ -1,7 +1,6 @@
-﻿namespace OA.Domain
+﻿namespace OA.Domain;
+
+public interface IResponsePage
 {
-    public interface IResponsePage
-    {
-        public int TotalCount { get; set; }
-    }
+    public int TotalCount { get; set; }
 }

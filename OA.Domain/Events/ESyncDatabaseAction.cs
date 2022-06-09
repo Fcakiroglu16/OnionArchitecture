@@ -1,9 +1,8 @@
-﻿namespace OA.Domain.Events
+﻿namespace OA.Domain.Events;
+
+public enum ESyncDatabaseAction
 {
-    public enum ESyncDatabaseAction
-    {
-        Created,
-        Updated,
-        Deleted
-    }
+    Created,
+    Updated,
+    Deleted
 }

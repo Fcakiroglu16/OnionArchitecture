@@ -1,7 +1,6 @@
-﻿namespace OA.Domain.Events
+﻿namespace OA.Domain.Events;
+
+public interface IEventPublish
 {
-    public interface IEventPublish
-    {
-        Task Publish<T>(T @event);
-    }
+    Task Publish<T>(T @event);
 }

@@ -1,18 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OA.Domain;
 
-namespace OA.Presentation
+namespace OA.Presentation;
+
+[Route("api/[controller]")]
+[ApiController]
+public class CustomControllerBase : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class CustomControllerBase : ControllerBase
+    public IActionResult CreateActionResult<T>(CustomResponseDto<T> response)
     {
-        public IActionResult CreateActionResult<T>(CustomResponseDto<T> response)
+        return new ObjectResult(response.StatusCode == 204 ? null : response)
         {
-            return new ObjectResult(response.StatusCode == 204 ? null : response)
-            {
-                StatusCode = response.StatusCode
-            };
-        }
+            StatusCode = response.StatusCode
+        };
     }
 }

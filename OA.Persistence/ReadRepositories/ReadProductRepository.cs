@@ -2,29 +2,28 @@
 using OA.Domain;
 using OA.Domain.Repositories;
 
-namespace OA.Persistence.Databases.ReadEfCoreRepositories
+namespace OA.Persistence.Databases.ReadEfCoreRepositories;
+
+public class ReadProductRepository : IReadProductRepository
 {
-    public class ReadProductRepository : IReadProductRepository
+    private readonly AppDbContext _context;
+
+    public ReadProductRepository(AppDbContext context)
     {
-        private readonly AppDbContext _context;
+        _context = context;
+    }
 
-        public ReadProductRepository(AppDbContext context)
-        {
-            _context = context;
-        }
+    public async Task<EntityWithPage<Product>> GetAll(int page, int pageSize)
+    {
+        var productCount = await _context.Products.CountAsync();
 
-        public async Task<EntityWithPage<Product>> GetAll(int page, int pageSize)
-        {
-            var productCount = await _context.Products.CountAsync();
+        var products = await _context.Products.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
 
-            var products = await _context.Products.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+        return new EntityWithPage<Product> { List = products, TotalCount = productCount };
+    }
 
-            return new EntityWithPage<Product> { List = products, TotalCount = productCount };
-        }
-
-        public async Task<Product> GetById(int id)
-        {
-            return await _context.Products.FindAsync(id);
-        }
+    public async Task<Product> GetById(int id)
+    {
+        return await _context.Products.FindAsync(id);
     }
 }

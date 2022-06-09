@@ -1,8 +1,7 @@
-﻿namespace OA.Domain
+﻿namespace OA.Domain;
+
+public abstract class BaseEntity
 {
-    public abstract class BaseEntity
-    {
-        public DateTime CreatedDate { get; set; }
-        public DateTime? UpdatedDate { get; set; }
-    }
+    public DateTime CreatedDate { get; set; }
+    public DateTime? UpdatedDate { get; set; }
 }

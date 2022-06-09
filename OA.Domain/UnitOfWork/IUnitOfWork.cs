@@ -1,9 +1,8 @@
-﻿namespace OA.Domain.UnitOfWork
-{
-    public interface IUnitOfWork
-    {
-        int SaveChanges();
+﻿namespace OA.Domain.UnitOfWork;
 
-        Task<int> SaveChangesAsync();
-    }
+public interface IUnitOfWork
+{
+    int SaveChanges();
+
+    Task<int> SaveChangesAsync();
 }

@@ -1,27 +1,27 @@
 ﻿using OA.Domain.ProductUseCases.Queries;
 
-namespace OA.Application.ProductUseCases.Queries
+namespace OA.Application.ProductUseCases.Queries;
+
+public class GetAllProductQueryHandler : IRequestHandler<GetAllProductQuery, CustomResponseDto<GetAllProductResponse>>
 {
-    public class GetAllProductQueryHandler : IRequestHandler<GetAllProductQuery, CustomResponseDto<GetAllProductResponse>>
+    private readonly IReadRepositoryManager _readRepositoryManager;
+
+    public GetAllProductQueryHandler(IReadRepositoryManager readRepositoryManager)
     {
-        private readonly IReadRepositoryManager _readRepositoryManager;
+        _readRepositoryManager = readRepositoryManager;
+    }
 
-        public GetAllProductQueryHandler(IReadRepositoryManager readRepositoryManager)
+    public async Task<CustomResponseDto<GetAllProductResponse>> Handle(GetAllProductQuery request,
+        CancellationToken cancellationToken)
+    {
+        var productWithPages = await _readRepositoryManager.ProductRepository.GetAll(request.Page, request.PageSize);
+
+        var response = new GetAllProductResponse
         {
-            _readRepositoryManager = readRepositoryManager;
-        }
+            Products = ObjectMapper.Mapper.Map<List<ProductDto>>(productWithPages.List),
+            TotalCount = productWithPages.TotalCount
+        };
 
-        public async Task<CustomResponseDto<GetAllProductResponse>> Handle(GetAllProductQuery request, CancellationToken cancellationToken)
-        {
-            var productWithPages = await _readRepositoryManager.ProductRepository.GetAll(request.Page, request.PageSize);
-
-            var response = new GetAllProductResponse()
-            {
-                Products = ObjectMapper.Mapper.Map<List<ProductDto>>(productWithPages.List),
-                TotalCount = productWithPages.TotalCount
-            };
-
-            return CustomResponseDto<GetAllProductResponse>.Success(200, response);
-        }
+        return CustomResponseDto<GetAllProductResponse>.Success(200, response);
     }
 }

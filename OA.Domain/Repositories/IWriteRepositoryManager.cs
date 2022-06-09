@@ -1,8 +1,7 @@
-﻿namespace OA.Domain.Repositories
+﻿namespace OA.Domain.Repositories;
+
+public interface IWriteRepositoryManager
 {
-    public interface IWriteRepositoryManager
-    {
-        IWriteProductRepository ProductRepository { get; }
-        IWriteCategoryRepository CategoryRepository { get; }
-    }
+    IWriteProductRepository ProductRepository { get; }
+    IWriteCategoryRepository CategoryRepository { get; }
 }

@@ -1,7 +1,6 @@
-﻿namespace OA.Application.ProductCommandQuery.Commands.Delete
+﻿namespace OA.Application.ProductCommandQuery.Commands.Delete;
+
+public class DeleteProductCommand : IRequest<CustomResponseDto<NoContent>>, IIdentity
 {
-    public class DeleteProductCommand : IRequest<CustomResponseDto<NoContent>>, IIdentity
-    {
-        public string Id { get; set; }
-    }
+    public string Id { get; set; }
 }

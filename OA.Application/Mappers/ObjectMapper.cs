@@ -1,19 +1,15 @@
 ﻿using AutoMapper;
 
-namespace OA.Application.Mappers
+namespace OA.Application.Mappers;
+
+public static class ObjectMapper
 {
-    public static class ObjectMapper
+    private static readonly Lazy<IMapper> lazy = new(() =>
     {
-        private static readonly Lazy<IMapper> lazy = new Lazy<IMapper>(() =>
-              {
-                  var config = new MapperConfiguration(cfg =>
-                  {
-                      cfg.AddProfile<CustomMapping>();
-                  });
+        var config = new MapperConfiguration(cfg => { cfg.AddProfile<CustomMapping>(); });
 
-                  return config.CreateMapper();
-              });
+        return config.CreateMapper();
+    });
 
-        public static IMapper Mapper => lazy.Value;
-    }
+    public static IMapper Mapper => lazy.Value;
 }

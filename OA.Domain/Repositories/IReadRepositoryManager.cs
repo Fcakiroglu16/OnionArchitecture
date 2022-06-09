@@ -1,7 +1,6 @@
-﻿namespace OA.Domain.Repositories
+﻿namespace OA.Domain.Repositories;
+
+public interface IReadRepositoryManager
 {
-    public interface IReadRepositoryManager
-    {
-        IReadProductRepository ProductRepository { get; }
-    }
+    IReadProductRepository ProductRepository { get; }
 }
